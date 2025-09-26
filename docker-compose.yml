@@ -1,0 +1,32 @@
+version: "3.9"
+
+services:
+  web:
+    build: .
+    container_name: compliancedrone-web
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - PYTHON_API=http://python-api:8000
+      - DATABASE_URL=${DATABASE_URL}
+      - ROBOFLOW_API_KEY=${ROBOFLOW_API_KEY}
+      - S3_BUCKET=${S3_BUCKET}
+    depends_on:
+      - python-api
+    volumes:
+      - .:/app
+      - ./outputs:/app/outputs
+  python-api:
+    build: ./python-services
+    container_name: compliancedrone-python
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+      - S3_BUCKET=${S3_BUCKET}
+      - OUTPUT_ROOT=/app/outputs
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./python-services:/app
+      - ./outputs:/app/outputs
+      - ./uploads:/app/uploads

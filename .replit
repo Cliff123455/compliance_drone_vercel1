@@ -1,0 +1,56 @@
+run = "npm run dev"
+entrypoint = "index.js"
+hidden = [".config", "package-lock.json", ".next", ".swc"]
+modules = ["nodejs-22", "postgresql-16"]
+
+[nix]
+channel = "stable-24_11"
+packages = ["unzip"]
+
+[env]
+NEXT_TELEMETRY_DISABLED = "1"
+
+[deployment]
+build = ["npm", "run", "build"]
+run = ["npm", "run", "start"]
+deploymentTarget = "cloudrun"
+
+[[ports]]
+localPort = 3000
+externalPort = 80
+
+[[ports]]
+localPort = 5000
+externalPort = 80
+
+[[ports]]
+localPort = 44221
+externalPort = 3001
+
+[agent]
+expertMode = true
+integrations = ["javascript_log_in_with_replit:1.0.0", "javascript_database:1.0.0", "replitmail:1.0.0"]
+
+[workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "ComplianceDrone"
+
+[[workflows.workflow]]
+name = "ComplianceDrone"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm run dev"
+waitForPort = 5000
+
+[workflows.workflow.metadata]
+outputType = "webview"

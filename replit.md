@@ -17,12 +17,12 @@ ComplianceDrone.com is a professional thermal inspection platform that uses AI-p
 - Certified pilot network integration
 
 ## Brand Colors
-- Primary Orange: #D97706 (sunset orange)
-- Secondary Orange: #FB923C (sunset peach)  
 - Primary Blue: #475569 (blue-gray dark)
-- Secondary Blue: #64748B (blue-gray light)
 - Accent Grey: #6B7280 (slate blue)
+- Primary Black:rgb(0, 0, 0) (black)
+- Secondary Orange: #FB923C (sunset peach)  
 
+-
 ## Design Theme
 - **Main gradient**: Blue-gray theme (replaced purple) - from dark blue-gray (#475569) to light blue-gray (#64748B) to slate (#6B7280)
 - **Logo**: Professional ComplianceDrone banner logo with thermal grid pattern and checkmark
