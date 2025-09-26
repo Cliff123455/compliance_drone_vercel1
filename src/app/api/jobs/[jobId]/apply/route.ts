@@ -3,13 +3,14 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/libs/auth";
 import { storage } from "@/server/storage";
 import { db } from "@/server/db";
-import { jobs } from "@/shared/schema";
+import { inspectionJobs as jobs } from "@/shared/schema";
 import { eq, and } from "drizzle-orm";
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { jobId: string } }
+  context: { params: { jobId: string } }
 ) {
+  const { params } = context;
   try {
     const session = await getServerSession(authOptions);
 
